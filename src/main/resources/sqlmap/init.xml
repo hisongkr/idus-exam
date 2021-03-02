@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.idus.exam.init">
+
+
+    <update id="dropUserTable">
+        drop table IF EXISTS t_user
+    </update>
+
+    <update id="createUserTable" >
+        CREATE TABLE t_user (
+          user_id bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK Integer ',
+          user_name varchar(20) NOT NULL COMMENT 'User이름',
+          user_nickname varchar(30) NOT NULL COMMENT 'User별명',
+          user_password varchar(255) NOT NULL COMMENT 'User Password',
+          user_tel varchar(20) NOT NULL COMMENT '전화번호',
+          user_email varchar(20) NOT NULL COMMENT '이메일',
+          user_gender char(1) DEFAULT NULL COMMENT '성별 F:여, M:남',
+          last_order_no char(12) NULL COMMENT '최근 주문번호',
+          last_goods_name varchar(100) NULL COMMENT '최근 주문상품명',
+          last_payment_date datetime NULL COMMENT '최근 주문시간',
+          PRIMARY KEY (user_id)
+        ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+    </update>
+
+
+    <update id="dropOrderTable">
+        drop table IF EXISTS t_order
+    </update>
+
+    <update id="createOrderTable" >
+        CREATE TABLE t_order (
+          order_no char(12) NOT NULL COMMENT '주문번호',
+          goods_name varchar(100) NOT NULL COMMENT '제품명',
+          payment_date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '결재일시',
+          user_id bigint(20) NULL COMMENT 'UserId FK',
+          PRIMARY KEY (order_no)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+    </update>
+
+
+
+
+</mapper>

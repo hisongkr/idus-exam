@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.idus.exam.user">
+
+    <insert id="insertUserInfo"  parameterType="Map">
+        INSERT INTO t_user
+        (
+        user_name,
+        user_nickname,
+        user_password,
+        user_tel,
+        user_email,
+        user_gender
+        )
+        values (
+        #{userName},
+        #{userNickname},
+        #{userPassword},
+        #{userTel},
+        #{userEmail},
+        #{userGender}
+        )
+
+        <selectKey resultType="int" keyProperty="userId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <select id="selectUserInfo"  parameterType="Map" resultType="com.idus.exam.model.UserInfo">
+        SELECT
+            user_id AS userId,
+            user_name AS userName,
+            user_nickname AS userNickname,
+            user_password AS userPassword,
+            user_tel AS userTel,
+            user_email AS userEmail,
+            user_gender AS userGender,
+            last_order_no AS lastOrderNo,
+            last_goods_name AS lastGoodsName,
+            last_payment_date AS lastPaymentDate
+        FROM t_user
+        WHERE 1 = 1
+        <if test='userId != null and userId !=""'>
+            AND user_id = #{userId}
+        </if>
+        <if test='userEmail != null and userEmail !=""'>
+            AND user_email = #{userEmail}
+        </if>
+    </select>
+
+
+    <select id="selectUserInfoList"  parameterType="Map" resultType="com.idus.exam.model.UserInfo">
+        SELECT
+            user_id AS userId,
+            user_name AS userName,
+            user_nickname AS userNickname,
+            user_password AS userPassword,
+            user_tel AS userTel,
+            user_email AS userEmail,
+            user_gender AS userGender,
+            last_order_no AS lastOrderNo,
+            last_goods_name AS lastGoodsName,
+            last_payment_date AS lastPaymentDate
+        FROM t_user
+        WHERE 1 = 1
+        <if test='userName != null and userName !=""'>
+            AND user_name = #{userName}
+        </if>
+        <if test='userEmail != null and userEmail !=""'>
+            AND user_email = #{userEmail}
+        </if>
+        ORDER BY user_id ASC
+        LIMIT  #{page} ,  #{rowCount}
+    </select>
+
+    <update id="updateUserOrderInfo" parameterType="Map" >
+        UPDATE t_user
+        SET
+        last_order_no = #{lastOrderNo},
+        last_goods_name = #{lastGoodsName},
+        last_payment_date = #{lastPaymentDate}
+        WHERE user_id = #{userId}
+    </update>
+
+
+</mapper>
