@@ -3,7 +3,7 @@
 1. Bussiness분석
   제시한 문제의 테이블에 대한 추가 필드를 만들었습니다.
 
-  회원속성
+  회원속성/br
     PK가 따로 존재하지 않아 Integer형태의 user_id속성을 추가하였고 AUTO_INCREMENT를 사용하여 관리햐였습니다.
     제시된 문제중 여러회원 목록 조회 에서 "각 회원의 마지막 주문 정보"를 기록하기위한 
           last_order_no char(12) NULL COMMENT '최근 주문번호',
